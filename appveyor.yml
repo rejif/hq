@@ -1,0 +1,39 @@
+notifications:
+  - provider: Email
+    on_build_success: false
+    on_build_failure: false
+    on_build_status_changed: false
+
+version: 1.0.{build}
+
+branches:
+  only:
+    - master
+
+os: Visual Studio 2015
+
+install:
+  - git submodule update --init --recursive
+  - set QTDIR=C:\Qt\5.9\msvc2015
+  - set PATH=%PATH%;%QTDIR%\bin
+
+build_script:
+  - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86'
+  - qmake hq.pro
+  - dir
+  - nmake
+  - dir
+
+after_build:
+  - cd release
+  - windeployqt --no-compiler-runtime --no-translations --release hq.exe
+  - ps : rm *.cpp
+  - ps : rm *.h
+  - ps : rm *.obj
+  - dir
+
+artifacts:
+  - path: release
+    name: hq
+  - path: release/hq.exe
+    name: hq.exe
