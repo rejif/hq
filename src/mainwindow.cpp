@@ -21,6 +21,23 @@ QPushButton* createServiceBtn(QString btnText){
    });
   return qProcBtn;
 }
+QPushButton* createCmdBtn(QString btnText,QString cmd){
+  QPushButton *qProcBtn;
+  qProcBtn = new QPushButton(btnText);
+  QObject::connect(qProcBtn, &QPushButton::clicked, [=]() {
+      QProcess::startDetached(cmd);
+   });
+  return qProcBtn;
+}
+QPushButton* openCommandPrompt(){
+  QPushButton *qProcBtn;
+  qProcBtn = new QPushButton("CMD");
+  QObject::connect(qProcBtn, &QPushButton::clicked, [=]() {
+      QProcess::execute("C:/windows/system32/cmd.exe /C cd \\ && start cmd");
+   });
+  return qProcBtn;
+}
+
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     setWindowTitle("HQ");
     QWidget * wdg = new QWidget(this);
@@ -28,12 +45,15 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     wdg->setLayout(vlay);
     setCentralWidget(wdg);
 #if defined(_WIN32) || defined(_WIN64)
+    vlay->addWidget(openCommandPrompt());
     vlay->addWidget(createQProcBtn("Notepad","notepad"));
     vlay->addWidget(createQProcBtn("Explorer","C:/Windows/explorer.exe"));
     vlay->addWidget(createServiceBtn("Service"));
-    vlay->addWidget(createQProcBtn("TabletUtility","C:/Program Files/Tablet/Wacom/32/PrefUtil.exe"));
+    vlay->addWidget(createQProcBtn("WacomTabletUtility","C:/Program Files/Tablet/Wacom/32/PrefUtil.exe"));
     vlay->addWidget(createQProcBtn("PowerMate","C:/Program Files (x86)/Griffin Technology/PowerMate/PowerMate.exe"));
     vlay->addWidget(createQProcBtn("Everything","C:/Program Files/Everything/Everything.exe"));
+    vlay->addWidget(createCmdBtn("Shutdown1h","C:/Windows/System32/Shutdown.exe -s -t 3600"));
+    vlay->addWidget(createCmdBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe -a"));
     vlay->addWidget(createQProcBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
     vlay->addWidget(createQProcBtn("GoogleChrome","C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"));
     vlay->addWidget(createQProcBtn("Firefox","C:/Program Files/Mozilla Firefox/firefox.exe"));
