@@ -37,10 +37,6 @@ addons:
     - qt59declarative
     - libqt5x11extras5-dev
 
-before_install:
-  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
-
 install:
   - source /opt/qt59/bin/qt59-env.sh
   - qmake --version
