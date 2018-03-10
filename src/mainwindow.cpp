@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
 #if defined(_WIN32) || defined(_WIN64)
     vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
     vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
+    vlay->addWidget(createExecuteBtn("VersionUpdate","C:/Windows/System32/cmd.exe /C start https://ci.appveyor.com/project/onoie/hq/build/artifacts/"));
     vlay->addWidget(createDetachBtn("Explorer","C:/Windows/explorer.exe"));
     vlay->addWidget(createDetachBtn("OpenDesktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
     vlay->addWidget(createDetachBtn("OpenStartup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
