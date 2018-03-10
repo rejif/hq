@@ -45,9 +45,10 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
 #if defined(_WIN32) || defined(_WIN64)
     vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
     vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
-    vlay->addWidget(createDetachBtn("Desktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
-    vlay->addWidget(createDetachBtn("Notepad","notepad"));
     vlay->addWidget(createDetachBtn("Explorer","C:/Windows/explorer.exe"));
+    vlay->addWidget(createDetachBtn("OpenDesktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
+    vlay->addWidget(createDetachBtn("OpenStartup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
+    vlay->addWidget(createDetachBtn("Notepad","notepad"));
     vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
     vlay->addWidget(createQDetachBtn("WacomTabletUtility","C:/Program Files/Tablet/Wacom/32/PrefUtil.exe"));
     vlay->addWidget(createQDetachBtn("Everything","C:/Program Files/Everything/Everything.exe"));
@@ -55,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     vlay->addWidget(createDetachBtn("Shutdown1h","C:/Windows/System32/Shutdown.exe -s -t 3600"));
     vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe -a"));
     vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
+    vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
     vlay->addWidget(createQDetachBtn("GoogleChrome","C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"));
     vlay->addWidget(createQDetachBtn("Firefox","C:/Program Files/Mozilla Firefox/firefox.exe"));
     vlay->addWidget(createDetachBtn("Vivaldi",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Vivaldi/Application/vivaldi.exe"));
@@ -74,8 +76,12 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     vlay->addWidget(createQDetachBtn("RubyMine","C:/Program Files (x86)/JetBrains/RubyMine 2016.2.5/bin/rubymine64.exe"));
     vlay->addWidget(createQDetachBtn("WebStorm","C:/Program Files (x86)/JetBrains/WebStorm 2016.2.4/bin/WebStorm64.exe"));
     vlay->addWidget(createQDetachBtn("DbVisualizer","C:/Program Files/DbVisualizer/dbvis.exe"));
+    vlay->addWidget(createQDetachBtn("NetLimiter4","C:/Program Files/Locktime Software/NetLimiter 4/NLClientApp.exe"));
     vlay->addWidget(createQDetachBtn("Maya2016","C:/Program Files/Autodesk/Maya2016/bin/maya.exe"));
     vlay->addWidget(createDetachBtn("QtCreator","C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
+    vlay->addWidget(createQDetachBtn("VS2013","C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/WDExpress.exe"));
+    vlay->addWidget(createQDetachBtn("VS2015","C:/Program Files (x86)/Microsoft Visual Studio 14.0/Common7/IDE/devenv.exe"));
+    vlay->addWidget(createQDetachBtn("VS2017","C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/Common7/IDE/devenv.exe"));
 #else
     qDebug() << "not win";
 #endif
