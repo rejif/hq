@@ -54,6 +54,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
     vlay->addWidget(createDetachBtn("OpenHome","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\""));
     vlay->addWidget(createDetachBtn("OpenDesktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
+    vlay->addWidget(createDetachBtn("OpenMayaDirectory","\"C:/Windows/explorer.exe\" \""+QString(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/maya/").replace("/","\\")+"\""));
+    vlay->addWidget(createDetachBtn("OpenMayaDefaultProject","\"C:/Windows/explorer.exe\" \""+QString(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/maya/projects/default/").replace("/","\\")+"\""));
     vlay->addWidget(createDetachBtn("OpenStartup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
     vlay->addWidget(createDetachBtn("Notepad","notepad"));
     vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
