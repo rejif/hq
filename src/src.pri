@@ -3,4 +3,5 @@ SOURCES += \
         $$PWD/mainwindow.cpp
 
 HEADERS += \
-        $$PWD/mainwindow.h
+        $$PWD/mainwindow.h \
+    $$PWD/config.h
