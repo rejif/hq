@@ -77,8 +77,8 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
-        vlay->addWidget(createQDetachBtn("WindowMediaPlayer","C:/Program Files (x86)/Windows Media Player/wmplayer.exe"));
         vlay->addWidget(createDetachBtn("Notepad","notepad"));
+        vlay->addWidget(createDetachBtn("Calc","calc"));
         vlay->addWidget(createDetachBtn("Shutdown1h","C:/Windows/System32/Shutdown.exe -s -t 3600"));
         vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe -a"));
     }
@@ -96,23 +96,35 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("MayaDefaultProject","\"C:/Windows/explorer.exe\" \""+QString(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/maya/projects/default/").replace("/","\\")+"\""));
         vlay->addWidget(createExecuteBtn("MayaFCheck","C:/Windows/System32/cmd.exe /C cd C:/Program Files/Autodesk/Maya2016/bin/ && start fcheck.exe"));
         vlay->addWidget(createQDetachBtn("MayaMatchMover2014","C:/Program Files/Autodesk/MatchMover2014/MatchMoverApp.exe"));
+        vlay->addWidget(createQDetachBtn("SubstancePainter","C:/Program Files/Allegorithmic/Substance Painter/Substance Painter.exe"));
     }
     if(config->other){
         vlay->addWidget(new QLabel("Other"));
-        vlay->addWidget(createQDetachBtn("Steam","C:/Program Files (x86)/Steam/Steam.exe"));
-        vlay->addWidget(createQDetachBtn("Origin","C:/Program Files (x86)/Origin/Origin.exe"));
-        vlay->addWidget(createQDetachBtn("Uplay","C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/upc.exe"));
-        vlay->addWidget(createQDetachBtn("Everything","C:/Program Files/Everything/Everything.exe"));
-        vlay->addWidget(createQDetachBtn("Audacity","C:/Program Files (x86)/Audacity/audacity.exe"));
+        vlay->addWidget(createQDetachBtn("Kindle","C:/Program Files (x86)/Amazon/Kindle/Kindle.exe"));
         vlay->addWidget(createQDetachBtn("AndroidStdio","C:/Program Files/Android/Android Studio/bin/studio64.exe"));
         vlay->addWidget(createQDetachBtn("TeamViewer","C:/Program Files (x86)/TeamViewer/TeamViewer.exe"));
         vlay->addWidget(createQDetachBtn("DbVisualizer","C:/Program Files/DbVisualizer/dbvis.exe"));
-        vlay->addWidget(createQDetachBtn("NetLimiter4","C:/Program Files/Locktime Software/NetLimiter 4/NLClientApp.exe"));
         vlay->addWidget(createQDetachBtn("SubstancePainter","C:/Program Files/Allegorithmic/Substance Painter/Substance Painter.exe"));
         vlay->addWidget(createQDetachBtn("PaintstormStdio","C:/Program Files/Paintstorm Studio/Paintstorm.exe"));
         vlay->addWidget(createQDetachBtn("PowerMate","C:/Program Files (x86)/Griffin Technology/PowerMate/PowerMate.exe"));
         vlay->addWidget(createQDetachBtn("WacomTabletUtility","C:/Program Files/Tablet/Wacom/32/PrefUtil.exe"));
-
+    }
+    if(config->utils){
+        vlay->addWidget(new QLabel("Utils"));
+        vlay->addWidget(createQDetachBtn("NetLimiter4","C:/Program Files/Locktime Software/NetLimiter 4/NLClientApp.exe"));
+        vlay->addWidget(createQDetachBtn("Everything","C:/Program Files/Everything/Everything.exe"));
+        vlay->addWidget(createQDetachBtn("DaemonToolsLite","C:/Program Files (x86)/DAEMON Tools Lite/DTLite.exe"));
+        vlay->addWidget(createQDetachBtn("ImgBurn","C:/Program Files (x86)/ImgBurn/ImgBurn.exe"));
+        vlay->addWidget(createQDetachBtn("Audacity","C:/Program Files (x86)/Audacity/audacity.exe"));
+        vlay->addWidget(createQDetachBtn("LICEcap","C:/Program Files (x86)/LICEcap/licecap.exe"));
+        vlay->addWidget(createQDetachBtn("SDFormatter","C:/Program Files (x86)/SDA/SD Formatter/SDFormatter.exe"));
+    }
+    if(config->player){
+        vlay->addWidget(new QLabel("Player"));
+        vlay->addWidget(createQDetachBtn("WindowMediaPlayer","C:/Program Files (x86)/Windows Media Player/wmplayer.exe"));
+        vlay->addWidget(createQDetachBtn("QuickTimePlayer","C:/Program Files (x86)/QuickTime/QuickTimePlayer.exe"));
+        vlay->addWidget(createQDetachBtn("MPC-HC","C:/Program Files/MPC-HC/mpc-hc64.exe"));
+        vlay->addWidget(createQDetachBtn("VLC","C:/Program Files (x86)/VideoLAN/VLC/vlc.exe"));
     }
     if(config->adobe){
         vlay->addWidget(new QLabel("Adobe"));
@@ -139,6 +151,15 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createQDetachBtn("VS2013","C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/WDExpress.exe"));
         vlay->addWidget(createQDetachBtn("VS2015","C:/Program Files (x86)/Microsoft Visual Studio 14.0/Common7/IDE/devenv.exe"));
         vlay->addWidget(createQDetachBtn("VS2017","C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/Common7/IDE/devenv.exe"));
+    }
+    if(config->game){
+        vlay->addWidget(new QLabel("Game"));
+        vlay->addWidget(createQDetachBtn("Unity","C:/Program Files/Unity/Editor/Unity.exe"));
+        vlay->addWidget(createQDetachBtn("EpicGameLauncher","C:/Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win64/EpicGamesLauncher.exe"));
+        vlay->addWidget(createQDetachBtn("Steam","C:/Program Files (x86)/Steam/Steam.exe"));
+        vlay->addWidget(createQDetachBtn("Origin","C:/Program Files (x86)/Origin/Origin.exe"));
+        vlay->addWidget(createQDetachBtn("Uplay","C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/upc.exe"));
+        vlay->addWidget(createQDetachBtn("Oculus","C:/Program Files/Oculus/Support/oculus-client/OculusClient.exe"));
     }
 #else
     qDebug() << "not win";

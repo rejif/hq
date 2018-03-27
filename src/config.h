@@ -8,7 +8,7 @@
 class Config{
 public:
     QString path = qApp->applicationDirPath()+"/conf.ini";
-    bool develop_hidden,adobe,jetbrains,explorer,system,browser,maya,visual_stdio,other;
+    bool develop_hidden,adobe,jetbrains,explorer,system,browser,maya,visual_stdio,game,utils,other,player;
     QDateTime loaded;
     Config(){}
     ~Config();
@@ -30,6 +30,9 @@ public:
         settings.setValue("AdobeCS5.5", adobe);
         settings.setValue("Jetbrains2016.2", jetbrains);
         settings.setValue("VisualStdio",visual_stdio);
+        settings.setValue("Game",game);
+        settings.setValue("Utils",utils);
+        settings.setValue("Player",player);
         settings.endGroup();
         list();
     }
@@ -47,6 +50,9 @@ public:
         adobe = settings.value("AdobeCS5.5").toBool();
         jetbrains = settings.value("Jetbrains2016.2").toBool();
         visual_stdio = settings.value("VisualStdio").toBool();
+        game = settings.value("Game").toBool();
+        utils = settings.value("Utils").toBool();
+        player = settings.value("Player").toBool();
         settings.endGroup();
         loaded = QDateTime::currentDateTime();
         list();
