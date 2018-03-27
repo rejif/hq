@@ -99,6 +99,9 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->other){
         vlay->addWidget(new QLabel("Other"));
+        vlay->addWidget(createQDetachBtn("Steam","C:/Program Files (x86)/Steam/Steam.exe"));
+        vlay->addWidget(createQDetachBtn("Origin","C:/Program Files (x86)/Origin/Origin.exe"));
+        vlay->addWidget(createQDetachBtn("Uplay","C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/upc.exe"));
         vlay->addWidget(createQDetachBtn("Everything","C:/Program Files/Everything/Everything.exe"));
         vlay->addWidget(createQDetachBtn("Audacity","C:/Program Files (x86)/Audacity/audacity.exe"));
         vlay->addWidget(createQDetachBtn("AndroidStdio","C:/Program Files/Android/Android Studio/bin/studio64.exe"));
