@@ -97,7 +97,6 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("MayaDefaultProject","\"C:/Windows/explorer.exe\" \""+QString(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/maya/projects/default/").replace("/","\\")+"\""));
         vlay->addWidget(createExecuteBtn("MayaFCheck","C:/Windows/System32/cmd.exe /C cd C:/Program Files/Autodesk/Maya2016/bin/ && start fcheck.exe"));
         vlay->addWidget(createQDetachBtn("MayaMatchMover2014","C:/Program Files/Autodesk/MatchMover2014/MatchMoverApp.exe"));
-        vlay->addWidget(createQDetachBtn("SubstancePainter","C:/Program Files/Allegorithmic/Substance Painter/Substance Painter.exe"));
     }
     if(config->other){
         vlay->addWidget(new QLabel("Other"));
@@ -105,10 +104,10 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createQDetachBtn("AndroidStdio","C:/Program Files/Android/Android Studio/bin/studio64.exe"));
         vlay->addWidget(createQDetachBtn("TeamViewer","C:/Program Files (x86)/TeamViewer/TeamViewer.exe"));
         vlay->addWidget(createQDetachBtn("DbVisualizer","C:/Program Files/DbVisualizer/dbvis.exe"));
-        vlay->addWidget(createQDetachBtn("SubstancePainter","C:/Program Files/Allegorithmic/Substance Painter/Substance Painter.exe"));
         vlay->addWidget(createQDetachBtn("PaintstormStdio","C:/Program Files/Paintstorm Studio/Paintstorm.exe"));
         vlay->addWidget(createQDetachBtn("PowerMate","C:/Program Files (x86)/Griffin Technology/PowerMate/PowerMate.exe"));
         vlay->addWidget(createQDetachBtn("WacomTabletUtility","C:/Program Files/Tablet/Wacom/32/PrefUtil.exe"));
+        vlay->addWidget(createQDetachBtn("WacomDesktopCenter","C:/Program Files/Tablet/Wacom/32/WacomDesktopCenter.exe"));
     }
     if(config->utils){
         vlay->addWidget(new QLabel("Utils"));
