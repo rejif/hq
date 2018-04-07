@@ -79,9 +79,9 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
         vlay->addWidget(createDetachBtn("Notepad","notepad"));
         vlay->addWidget(createDetachBtn("Calc","calc"));
-        vlay->addWidget(createDetachBtn("ShutdownForce","C:/Windows/System32/Shutdown.exe -s -t -f 0"));
-        vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe -s -t 7200"));
-        vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe -a"));
+        vlay->addWidget(createDetachBtn("ShutdownForce","C:/Windows/System32/Shutdown.exe /s /f /t 0"));
+        vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe /s /t 7200"));
+        vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe /a"));
     }
     if(config->browser){
         vlay->addWidget(new QLabel("Browser"));
