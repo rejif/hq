@@ -52,7 +52,9 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
-        vlay->addWidget(createQDetachBtn("VSCode","C:/Program Files/Microsoft VS Code/Code.exe"));
+        vlay->addWidget(createDetachBtn("Notepad","notepad"));
+        vlay->addWidget(createDetachBtn("Atom",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/atom/atom.exe"));
+        vlay->addWidget(createQDetachBtn("VisualStdioCode","C:/Program Files/Microsoft VS Code/Code.exe"));
         vlay->addWidget(createDetachBtn("QtCreator","C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
         vlay->addWidget(createLambdaActionButton("Restart",[=](){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
@@ -65,7 +67,7 @@ QWidget* MainWindow::createMenu(){
     if(config->explorer){
         vlay->addWidget(new QLabel("Explorer"));
         vlay->addWidget(createDetachBtn("Explorer","C:/Windows/explorer.exe"));
-        vlay->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
+        vlay->addWidget(createDetachBtn("MyComputer","explorer.exe ::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
         vlay->addWidget(createDetachBtn("MyDocument","explorer.exe ::{450d8fba-ad25-11d0-98a8-0800361b1103}"));
         vlay->addWidget(createDetachBtn("Home","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\""));
         vlay->addWidget(createDetachBtn("Desktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
@@ -73,12 +75,11 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->system){
         vlay->addWidget(new QLabel("System"));
+        vlay->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
         vlay->addWidget(createDetachBtn("ControlPanel","control"));
-        vlay->addWidget(createDetachBtn("MyComputer","explorer.exe ::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
         vlay->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
-        vlay->addWidget(createDetachBtn("Notepad","notepad"));
         vlay->addWidget(createDetachBtn("Calc","calc"));
         vlay->addWidget(createDetachBtn("ShutdownForce","C:/Windows/System32/Shutdown.exe /s /f /t 0"));
         vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe /s /t 7200"));
@@ -98,11 +99,11 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("MayaDefaultProject","\"C:/Windows/explorer.exe\" \""+QString(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)+"/maya/projects/default/").replace("/","\\")+"\""));
         vlay->addWidget(createExecuteBtn("MayaFCheck","C:/Windows/System32/cmd.exe /C cd C:/Program Files/Autodesk/Maya2016/bin/ && start fcheck.exe"));
         vlay->addWidget(createQDetachBtn("MayaMatchMover2014","C:/Program Files/Autodesk/MatchMover2014/MatchMoverApp.exe"));
+        vlay->addWidget(createExecuteBtn("Blender","C:/Windows/System32/cmd.exe /C cd \"C:/Program Files/Blender Foundation/Blender/\" && blender"));
     }
     if(config->other){
         vlay->addWidget(new QLabel("Other"));
-        vlay->addWidget(createQDetachBtn("Kindle","C:/Program Files (x86)/Amazon/Kindle/Kindle.exe"));
-        vlay->addWidget(createQDetachBtn("AndroidStdio","C:/Program Files/Android/Android Studio/bin/studio64.exe"));
+        vlay->addWidget(createQDetachBtn("NetLimiter4","C:/Program Files/Locktime Software/NetLimiter 4/NLClientApp.exe"));
         vlay->addWidget(createQDetachBtn("TeamViewer","C:/Program Files (x86)/TeamViewer/TeamViewer.exe"));
         vlay->addWidget(createQDetachBtn("DbVisualizer","C:/Program Files/DbVisualizer/dbvis.exe"));
         vlay->addWidget(createQDetachBtn("PaintstormStdio","C:/Program Files/Paintstorm Studio/Paintstorm.exe"));
@@ -112,13 +113,14 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->utils){
         vlay->addWidget(new QLabel("Utils"));
-        vlay->addWidget(createQDetachBtn("NetLimiter4","C:/Program Files/Locktime Software/NetLimiter 4/NLClientApp.exe"));
         vlay->addWidget(createQDetachBtn("Everything","C:/Program Files/Everything/Everything.exe"));
         vlay->addWidget(createQDetachBtn("DaemonToolsLite","C:/Program Files (x86)/DAEMON Tools Lite/DTLite.exe"));
         vlay->addWidget(createQDetachBtn("ImgBurn","C:/Program Files (x86)/ImgBurn/ImgBurn.exe"));
         vlay->addWidget(createQDetachBtn("Audacity","C:/Program Files (x86)/Audacity/audacity.exe"));
         vlay->addWidget(createQDetachBtn("LICEcap","C:/Program Files (x86)/LICEcap/licecap.exe"));
         vlay->addWidget(createQDetachBtn("SDFormatter","C:/Program Files (x86)/SDA/SD Formatter/SDFormatter.exe"));
+        vlay->addWidget(createQDetachBtn("Kindle","C:/Program Files (x86)/Amazon/Kindle/Kindle.exe"));
+        vlay->addWidget(createQDetachBtn("AndroidStdio","C:/Program Files/Android/Android Studio/bin/studio64.exe"));
     }
     if(config->player){
         vlay->addWidget(new QLabel("Player"));
