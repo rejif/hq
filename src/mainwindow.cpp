@@ -66,6 +66,7 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->explorer){
         vlay->addWidget(new QLabel("Explorer"));
+        vlay->addWidget(createDetachBtn("ControlPanel","control"));
         vlay->addWidget(createDetachBtn("Explorer","C:/Windows/explorer.exe"));
         vlay->addWidget(createDetachBtn("MyComputer","explorer.exe ::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
         vlay->addWidget(createDetachBtn("MyDocument","explorer.exe ::{450d8fba-ad25-11d0-98a8-0800361b1103}"));
@@ -76,7 +77,6 @@ QWidget* MainWindow::createMenu(){
     if(config->system){
         vlay->addWidget(new QLabel("System"));
         vlay->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
-        vlay->addWidget(createDetachBtn("ControlPanel","control"));
         vlay->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
