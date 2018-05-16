@@ -49,6 +49,7 @@ QWidget* MainWindow::createMenu(){
     if(!config->develop_hidden){
         vlay->addWidget(new QLabel("Develop"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
+        vlay->addWidget(createExecuteBtn("FlushDNS","C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns"));
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
@@ -73,6 +74,7 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("Home","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\""));
         vlay->addWidget(createDetachBtn("Desktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
         vlay->addWidget(createDetachBtn("Startup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
+        vlay->addWidget(createDetachBtn("Startup2","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
     }
     if(config->system){
         vlay->addWidget(new QLabel("System"));
