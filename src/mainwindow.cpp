@@ -48,9 +48,10 @@ QWidget* MainWindow::createMenu(){
     vlay->addWidget(createExecuteBtn("ApplicationUpdate","C:/Windows/System32/cmd.exe /C start https://ci.appveyor.com/project/onoie/hq/build/artifacts/"));
     if(!config->develop_hidden){
         vlay->addWidget(new QLabel("Develop"));
-        vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
-        vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
+        vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
+        vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
+        vlay->addWidget(createExecuteBtn("FlushDNS","C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns"));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
         vlay->addWidget(createQDetachBtn("TeraTerm","C:/Program Files (x86)/teraterm/ttermpro.exe"));
         vlay->addWidget(createQDetachBtn("WinSCP","C:/Program Files (x86)/WinSCP/WinSCP.exe"));
@@ -68,17 +69,18 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->explorer){
         vlay->addWidget(new QLabel("Explorer"));
+        vlay->addWidget(createDetachBtn("ControlPanel","control"));
         vlay->addWidget(createDetachBtn("Explorer","C:/Windows/explorer.exe"));
         vlay->addWidget(createDetachBtn("MyComputer","explorer.exe ::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
         vlay->addWidget(createDetachBtn("MyDocument","explorer.exe ::{450d8fba-ad25-11d0-98a8-0800361b1103}"));
         vlay->addWidget(createDetachBtn("Home","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\""));
         vlay->addWidget(createDetachBtn("Desktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
         vlay->addWidget(createDetachBtn("Startup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
+        vlay->addWidget(createDetachBtn("Startup2","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
     }
     if(config->system){
         vlay->addWidget(new QLabel("System"));
         vlay->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
-        vlay->addWidget(createDetachBtn("ControlPanel","control"));
         vlay->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
