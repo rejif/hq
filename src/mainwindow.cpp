@@ -52,6 +52,8 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
+        vlay->addWidget(createQDetachBtn("TeraTerm","C:/Program Files (x86)/teraterm/ttermpro.exe"));
+        vlay->addWidget(createQDetachBtn("WinSCP","C:/Program Files (x86)/WinSCP/WinSCP.exe"));
         vlay->addWidget(createDetachBtn("Notepad","notepad"));
         vlay->addWidget(createDetachBtn("Atom",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/atom/atom.exe"));
         vlay->addWidget(createQDetachBtn("VisualStdioCode","C:/Program Files/Microsoft VS Code/Code.exe"));
