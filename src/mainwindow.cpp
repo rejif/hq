@@ -52,11 +52,12 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
         vlay->addWidget(createExecuteBtn("FlushDNS","C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns"));
-        vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
+        vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
         vlay->addWidget(createDetachBtn("Notepad","notepad"));
         vlay->addWidget(createDetachBtn("Atom",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/atom/atom.exe"));
         vlay->addWidget(createQDetachBtn("VisualStdioCode","C:/Program Files/Microsoft VS Code/Code.exe"));
         vlay->addWidget(createDetachBtn("QtCreator","C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
+        vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
         vlay->addWidget(createLambdaActionButton("Restart",[=](){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
         }));
@@ -81,7 +82,6 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
         vlay->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
-        vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
         vlay->addWidget(createDetachBtn("Calc","calc"));
         vlay->addWidget(createDetachBtn("ShutdownForce","C:/Windows/System32/Shutdown.exe /s /f /t 0"));
         vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe /s /t 7200"));
