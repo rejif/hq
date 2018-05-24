@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include <QClipboard>
+#include <sys/time.h>
 QString getUsername(){
     QString name = qgetenv("USER");
     return !name.isEmpty()?name:qgetenv("USERNAME");
@@ -33,6 +35,15 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     QWidget *w = createMenu();
     setCentralWidget(w);
 }
+unsigned long long MainWindow::getEpoc(){
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    unsigned long long millisecondsSinceEpoch =
+        (unsigned long long)(tv.tv_sec) * 1000 +
+        (unsigned long long)(tv.tv_usec) / 1000;
+    //printf("%llu\n", millisecondsSinceEpoch);
+    return millisecondsSinceEpoch;
+}
 MainWindow::~MainWindow(){}
 QWidget* MainWindow::createMenu(){
     config->load();
@@ -41,9 +52,22 @@ QWidget* MainWindow::createMenu(){
     setCentralWidget(w);
     QVBoxLayout *vlay = new QVBoxLayout(w);
     w->setLayout(vlay);
-
+    vlay->addWidget(
+        createLambdaActionButton("UNIXID",[=](){
+            QString unixidstr=QString::number(getEpoc());
+            QApplication::clipboard()->setText(unixidstr);
+            QMessageBox::information(this,"MillisecondsSinceEpoch",unixidstr);
+        })
+    );
+    vlay->addWidget(
+        createLambdaActionButton("DATEID",[=](){
+            QString dateidstr=QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz");
+            QApplication::clipboard()->setText(dateidstr);
+            QMessageBox::information(this,"yyyyMMddhhmmsszzz",dateidstr);
+        })
+    );
 #if defined(_WIN32) || defined(_WIN64)
-    vlay->addWidget(new QLabel("Config@"+config->loaded.toString("yyyy/MM/dd hh:mm:ss")));
+    vlay->addWidget(new QLabel("Config @ "+config->loaded.toString("yyyy/MM/dd hh:mm:ss")));
     vlay->addWidget(createDetachBtn("ApplicationDirectory","\"C:/Windows/explorer.exe\" \""+qApp->applicationDirPath().replace("/","\\")+"\""));
     vlay->addWidget(createExecuteBtn("ApplicationUpdate","C:/Windows/System32/cmd.exe /C start https://ci.appveyor.com/project/onoie/hq/build/artifacts/"));
     if(!config->develop_hidden){

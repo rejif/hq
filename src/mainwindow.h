@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QMainWindow>
+#include <QMessageBox>
 #include "config.h"
 
 class MainWindow : public QMainWindow{
@@ -20,6 +21,7 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QWidget* createMenu();
+    unsigned long long getEpoc();
 };
 
 #endif // MAINWINDOW_H
