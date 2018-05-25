@@ -72,9 +72,8 @@ QWidget* MainWindow::createMenu(){
     vlay->addWidget(createExecuteBtn("ApplicationUpdate","C:/Windows/System32/cmd.exe /C start https://ci.appveyor.com/project/onoie/hq/build/artifacts/"));
     if(!config->develop_hidden){
         vlay->addWidget(new QLabel("Develop"));
-        vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
-        //QStandardPaths::writableLocation(QStandardPaths::HomeLocation)
-        //C:/Windows/System32/cmd.exe /C cd C:\Users/ && start "" "C:/Program Files/Git/git-bash.exe"'
+        //vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
+        vlay->addWidget(createExecuteBtn("GitBash","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && start \" \" \"C:/Program Files/Git/git-bash.exe\""));
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
         vlay->addWidget(createExecuteBtn("FlushDNS","C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns"));
