@@ -73,6 +73,8 @@ QWidget* MainWindow::createMenu(){
     if(!config->develop_hidden){
         vlay->addWidget(new QLabel("Develop"));
         vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
+        //QStandardPaths::writableLocation(QStandardPaths::HomeLocation)
+        //C:/Windows/System32/cmd.exe /C cd C:\Users/ && start "" "C:/Program Files/Git/git-bash.exe"'
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
         vlay->addWidget(createExecuteBtn("FlushDNS","C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns"));
