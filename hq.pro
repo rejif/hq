@@ -20,5 +20,11 @@ RESOURCES += \
 DISTFILES += \
     .travis.yml \
     appveyor.yml \
+    strartup.vbs \
+    icon.rc \
+    app.icon \
     README.md
 
+win32 {
+    RC_FILE += icon.rc
+}
