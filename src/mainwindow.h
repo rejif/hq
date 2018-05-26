@@ -12,6 +12,8 @@
 #include <QStandardPaths>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QTimer>
 #include "config.h"
 
 class MainWindow : public QMainWindow{

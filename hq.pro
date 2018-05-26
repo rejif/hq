@@ -14,6 +14,9 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 include(src/src.pri)
 
+RESOURCES += \
+    resources/resource.qrc
+
 DISTFILES += \
     .travis.yml \
     appveyor.yml \

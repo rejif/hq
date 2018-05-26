@@ -32,6 +32,7 @@ QPushButton* createQDetachBtn(QString btnText,QString command){
 }
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     setWindowTitle("HQ");
+    setWindowIcon(QIcon(":/hq.png"));
     QWidget *w = createMenu();
     setCentralWidget(w);
 }
@@ -53,10 +54,9 @@ QWidget* MainWindow::createMenu(){
     QVBoxLayout *vlay = new QVBoxLayout(w);
     w->setLayout(vlay);
     vlay->addWidget(
-        createLambdaActionButton("UNIXID",[=](){
+        createLambdaActionButton("EPOCID",[=](){
             QString unixidstr=QString::number(getEpoc());
             QApplication::clipboard()->setText(unixidstr);
-            QMessageBox::information(this,"MillisecondsSinceEpoch",unixidstr);
         })
     );
     vlay->addWidget(
@@ -64,6 +64,7 @@ QWidget* MainWindow::createMenu(){
             QString dateidstr=QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz");
             QApplication::clipboard()->setText(dateidstr);
             QMessageBox::information(this,"yyyyMMddhhmmsszzz",dateidstr);
+            //QString text = QInputDialog::getText(this,"Title","text");
         })
     );
 #if defined(_WIN32) || defined(_WIN64)
@@ -72,7 +73,7 @@ QWidget* MainWindow::createMenu(){
     vlay->addWidget(createExecuteBtn("ApplicationUpdate","C:/Windows/System32/cmd.exe /C start https://ci.appveyor.com/project/onoie/hq/build/artifacts/"));
     if(!config->develop_hidden){
         vlay->addWidget(new QLabel("Develop"));
-        //vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
+        /**///vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
         vlay->addWidget(createExecuteBtn("GitBash","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && start \" \" \"C:/Program Files/Git/git-bash.exe\""));
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
@@ -88,6 +89,7 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
         vlay->addWidget(createLambdaActionButton("Restart",[=](){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+            QTimer::singleShot(1000, qApp, SLOT(quit()));
         }));
         vlay->addWidget(createLambdaActionButton("ConfigLoad",[=](){createMenu();}));
         vlay->addWidget(createLambdaActionButton("ConfigEdit",[=](){if(config->check()){QProcess::execute("C:/Windows/System32/cmd.exe /C start "+config->path);}}));
@@ -102,8 +104,8 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("MyDocument","explorer.exe ::{450d8fba-ad25-11d0-98a8-0800361b1103}"));
         vlay->addWidget(createDetachBtn("Home","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\""));
         vlay->addWidget(createDetachBtn("Desktop","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).replace("/","\\")+"\""));
-        vlay->addWidget(createDetachBtn("Startup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
-        vlay->addWidget(createDetachBtn("Startup2","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
+        /**///vlay->addWidget(createDetachBtn("Startup","\"C:/Windows/explorer.exe\" \"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
+        vlay->addWidget(createDetachBtn("Startup","\"C:/Windows/explorer.exe\" \""+QStandardPaths::writableLocation(QStandardPaths::HomeLocation).replace("/","\\")+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""));
     }
     if(config->system){
         vlay->addWidget(new QLabel("System"));
@@ -111,7 +113,15 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
         vlay->addWidget(createDetachBtn("Calc","calc"));
-        vlay->addWidget(createDetachBtn("ShutdownForce","C:/Windows/System32/Shutdown.exe /s /f /t 0"));
+        vlay->addWidget(
+            createLambdaActionButton("ShutdownForce",[=]() {
+                QMessageBox::StandardButton reply;
+                 reply = QMessageBox::question(this,"Confirm","ShutdownForce?",QMessageBox::Ok|QMessageBox::Cancel);
+                 if (reply == QMessageBox::Ok) {
+                   QProcess::startDetached("C:/Windows/System32/Shutdown.exe /s /f /t 0");
+                 }
+            })
+        );
         vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe /s /t 7200"));
         vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe /a"));
     }
