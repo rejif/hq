@@ -55,16 +55,12 @@ QWidget* MainWindow::createMenu(){
     w->setLayout(vlay);
     vlay->addWidget(
         createLambdaActionButton("EPOCID",[=](){
-            QString unixidstr=QString::number(getEpoc());
-            QApplication::clipboard()->setText(unixidstr);
+            QApplication::clipboard()->setText(QString::number(getEpoc()));
         })
     );
     vlay->addWidget(
         createLambdaActionButton("DATEID",[=](){
-            QString dateidstr=QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz");
-            QApplication::clipboard()->setText(dateidstr);
-            QMessageBox::information(this,"yyyyMMddhhmmsszzz",dateidstr);
-            //QString text = QInputDialog::getText(this,"Title","text");
+            QApplication::clipboard()->setText(QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz"));
         })
     );
 #if defined(_WIN32) || defined(_WIN64)
@@ -77,7 +73,21 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createExecuteBtn("GitBash","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && start \" \" \"C:/Program Files/Git/git-bash.exe\""));
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
-        vlay->addWidget(createExecuteBtn("FlushDNS","C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns"));
+        vlay->addWidget(
+            createLambdaActionButton("QuietRun",[=](){
+                QString cmd = QInputDialog::getText(this,"Run","CMD");
+                QProcess::startDetached("C:/Windows/System32/cmd.exe /C cd \\ && " + cmd);
+            })
+        );
+        vlay->addWidget(
+            createLambdaActionButton("FlushDNS",[=](){
+            QProcess process;
+            process.start("C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns");
+            process.waitForFinished();
+            int code = process.exitCode();
+                QMessageBox::information(this,"FlashDNS","Done:"+code);
+            })
+        );
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
         vlay->addWidget(createQDetachBtn("TeraTerm","C:/Program Files (x86)/teraterm/ttermpro.exe"));
