@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QDesktopWidget>
+#include <QRect>
 #include <QSystemTrayIcon>
 
 int main(int argc, char *argv[]){
@@ -23,8 +25,11 @@ int main(int argc, char *argv[]){
         });
         trayIcon->show();
     }
-    MainWindow w;
-    w.show();
+
+    QRect aa(QApplication::desktop()->availableGeometry());
+    MainWindow mw;
+    mw.show();
+    mw.move(aa.width()-mw.width(),0);//TopRight Bottom:aa.height()-mw.height()
 
     return a.exec();
 }
