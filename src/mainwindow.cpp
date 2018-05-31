@@ -73,6 +73,7 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createExecuteBtn("GitBash","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && start \" \" \"C:/Program Files/Git/git-bash.exe\""));
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
+        vlay->addWidget(createExecuteBtn("WSL","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));
         vlay->addWidget(
             createLambdaActionButton("QuietRun",[=](){
                 QString cmd = QInputDialog::getText(this,"Run","CMD");
