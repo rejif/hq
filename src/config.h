@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QFileInfo>
 #include <QDateTime>
+#include <QDebug>
 class Config{
 public:
     QString path = qApp->applicationDirPath()+"/conf.ini";

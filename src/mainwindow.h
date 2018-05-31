@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QDebug>
 #include <QObject>
 #include <QString>
 #include <QLabel>
@@ -14,6 +13,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QTimer>
+#include <QClipboard>
 #include "config.h"
 
 class MainWindow : public QMainWindow{

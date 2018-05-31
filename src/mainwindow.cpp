@@ -1,9 +1,14 @@
 #include "mainwindow.h"
-#include <QClipboard>
 #include <sys/time.h>
 QString getUsername(){
     QString name = qgetenv("USER");
     return !name.isEmpty()?name:qgetenv("USERNAME");
+}
+template<typename Functor>
+void win10(Functor f){
+    if(QSysInfo::productVersion()==10){
+        f();
+    }
 }
 template<typename Functor>
 QAction* createLambdaAction(const QString actText,Functor f){
@@ -73,7 +78,7 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createExecuteBtn("GitBash","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && start \" \" \"C:/Program Files/Git/git-bash.exe\""));
         vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
         vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
-        vlay->addWidget(createExecuteBtn("WSL","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));
+        win10([=](){vlay->addWidget(createExecuteBtn("WSL","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));});
         vlay->addWidget(
             createLambdaActionButton("QuietRun",[=](){
                 QString cmd = QInputDialog::getText(this,"Run","CMD");
