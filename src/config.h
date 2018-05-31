@@ -8,7 +8,7 @@
 class Config{
 public:
     QString path = qApp->applicationDirPath()+"/conf.ini";
-    bool develop_hidden,adobe,jetbrains,explorer,system,browser,maya,visual_stdio,game,utils,other,player;
+    bool develop_hidden,adobe,jetbrains,explorer,system,work,editor,browser,office,maya,visual_stdio,game,utils,other,player;
     QDateTime loaded;
     Config(){}
     ~Config();
@@ -24,7 +24,10 @@ public:
         settings.beginGroup("Shortcut");
         settings.setValue("Explorer",explorer);
         settings.setValue("System",system);
+        settings.setValue("Work",work);
+        settings.setValue("Editor",editor);
         settings.setValue("Browser",browser);
+        settings.setValue("Office",office);
         settings.setValue("Maya2016",maya);
         settings.setValue("Other",other);
         settings.setValue("AdobeCS5.5", adobe);
@@ -44,7 +47,10 @@ public:
         settings.beginGroup("Shortcut");
         explorer = settings.value("Explorer").toBool();
         system = settings.value("System").toBool();
+        work = settings.value("Work").toBool();
+        editor = settings.value("Editor").toBool();
         browser = settings.value("Browser").toBool();
+        office = settings.value("Office").toBool();
         maya = settings.value("Maya2016").toBool();
         other = settings.value("Other").toBool();
         adobe = settings.value("AdobeCS5.5").toBool();

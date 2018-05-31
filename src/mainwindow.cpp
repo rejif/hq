@@ -88,15 +88,10 @@ QWidget* MainWindow::createMenu(){
                 QMessageBox::information(this,"FlashDNS","Done:"+code);
             })
         );
+        vlay->addWidget(createDetachBtn("Notepad","notepad"));
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
-        vlay->addWidget(createQDetachBtn("TeraTerm","C:/Program Files (x86)/teraterm/ttermpro.exe"));
-        vlay->addWidget(createQDetachBtn("WinSCP","C:/Program Files (x86)/WinSCP/WinSCP.exe"));
-        vlay->addWidget(createDetachBtn("Notepad","notepad"));
-        vlay->addWidget(createDetachBtn("Atom",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/atom/atom.exe"));
-        vlay->addWidget(createQDetachBtn("VisualStdioCode","C:/Program Files/Microsoft VS Code/Code.exe"));
         vlay->addWidget(createDetachBtn("QtCreator","C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
-        vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
         vlay->addWidget(createLambdaActionButton("Restart",[=](){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
             QTimer::singleShot(1000, qApp, SLOT(quit()));
@@ -135,12 +130,32 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe /s /t 7200"));
         vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe /a"));
     }
+    if(config->work){
+        vlay->addWidget(new QLabel("Work"));
+        vlay->addWidget(createQDetachBtn("TeraTerm","C:/Program Files (x86)/teraterm/ttermpro.exe"));
+        vlay->addWidget(createQDetachBtn("WinSCP","C:/Program Files (x86)/WinSCP/WinSCP.exe"));
+        vlay->addWidget(createQDetachBtn("Thunderbird","C:/Program Files (x86)/Mozilla Thunderbird/thunderbird.exe"));
+        vlay->addWidget(createQDetachBtn("XMind","C:/Program Files (x86)/XMind/XMind.exe"));
+    }
+    if(config->editor){
+        vlay->addWidget(new QLabel("Editor"));
+        vlay->addWidget(createDetachBtn("Atom",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/atom/atom.exe"));
+        vlay->addWidget(createQDetachBtn("VisualStdioCode","C:/Program Files/Microsoft VS Code/Code.exe"));
+        vlay->addWidget(createQDetachBtn("SublimeText3","C:/Program Files/Sublime Text 3/sublime_text.exe"));
+    }
     if(config->browser){
         vlay->addWidget(new QLabel("Browser"));
         vlay->addWidget(createQDetachBtn("InternetExplorer","C:/Program Files/Internet Explorer/iexplore.exe"));
+        vlay->addWidget(createExecuteBtn("MicrosoftEdge","C:/Windows/System32/cmd.exe /C cd \\ && start microsoft-edge:"));
         vlay->addWidget(createQDetachBtn("GoogleChrome","C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"));
         vlay->addWidget(createQDetachBtn("Firefox","C:/Program Files/Mozilla Firefox/firefox.exe"));
         vlay->addWidget(createDetachBtn("Vivaldi",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Vivaldi/Application/vivaldi.exe"));
+    }
+    if(config->office){
+        vlay->addWidget(new QLabel("Office"));
+        vlay->addWidget(createExecuteBtn("Word","C:/Windows/System32/cmd.exe /C cd \\ && start Winword"));
+        vlay->addWidget(createExecuteBtn("Excel","C:/Windows/System32/cmd.exe /C cd \\ && start excel"));
+        vlay->addWidget(createExecuteBtn("PowerPoint","C:/Windows/System32/cmd.exe /C cd \\ && start powerpnt"));
     }
     if(config->maya){
         vlay->addWidget(new QLabel("Maya"));
@@ -153,6 +168,7 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->other){
         vlay->addWidget(new QLabel("Other"));
+        vlay->addWidget(createDetachBtn("Slack",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/slack/slack.exe"));
         vlay->addWidget(createQDetachBtn("NetLimiter4","C:/Program Files/Locktime Software/NetLimiter 4/NLClientApp.exe"));
         vlay->addWidget(createQDetachBtn("TeamViewer","C:/Program Files (x86)/TeamViewer/TeamViewer.exe"));
         vlay->addWidget(createQDetachBtn("DbVisualizer","C:/Program Files/DbVisualizer/dbvis.exe"));
