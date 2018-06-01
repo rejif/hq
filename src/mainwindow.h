@@ -14,6 +14,8 @@
 #include <QInputDialog>
 #include <QTimer>
 #include <QClipboard>
+#include <QHostAddress>
+#include <QNetworkInterface>
 #include "config.h"
 
 class MainWindow : public QMainWindow{

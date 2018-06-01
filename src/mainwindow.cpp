@@ -58,6 +58,13 @@ QWidget* MainWindow::createMenu(){
     setCentralWidget(w);
     QVBoxLayout *vlay = new QVBoxLayout(w);
     w->setLayout(vlay);
+
+    QList<QHostAddress> list = QNetworkInterface::allAddresses();
+    for(int nIter=0; nIter<list.count(); nIter++){
+      if(!list[nIter].isLoopback() && list[nIter].protocol() == QAbstractSocket::IPv4Protocol){
+          vlay->addWidget(new QLabel("IP @ "+list[nIter].toString()));
+      }
+    }
     vlay->addWidget(
         createLambdaActionButton("EPOCID",[=](){
             QApplication::clipboard()->setText(QString::number(getEpoc()));
@@ -95,6 +102,7 @@ QWidget* MainWindow::createMenu(){
             })
         );
         vlay->addWidget(createDetachBtn("Notepad","notepad"));
+        vlay->addWidget(createDetachBtn("MSInfo","msinfo32.exe"));
         vlay->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
         vlay->addWidget(createDetachBtn("SourceTree",QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/SourceTree/Update.exe --processStart \"SourceTree.exe\""));
         vlay->addWidget(createDetachBtn("QtCreator","C:/Qt/Tools/QtCreator/bin/qtcreator.exe"));
