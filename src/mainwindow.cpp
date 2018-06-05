@@ -112,7 +112,7 @@ QWidget* MainWindow::createMenu(){
         }));
         vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc");}));
         vlay->addWidget(createLambdaActionButton("HostsBackup",[=](){
-            QFile::copy("C:/Windows/System32/drivers/etc/hosts", "C:/Windows/System32/drivers/etc/hosts.bkup");
+            QMessageBox::information(this,"Copy","Code:"+QFile::copy("C:/Windows/System32/drivers/etc/hosts", "C:/Windows/System32/drivers/etc/hosts.org"));
         }));
 
         vlay->addWidget(createLambdaActionButton("ConfigLoad",[=](){createMenu();}));
