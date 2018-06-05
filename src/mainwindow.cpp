@@ -111,6 +111,10 @@ QWidget* MainWindow::createMenu(){
             QTimer::singleShot(1000, qApp, SLOT(quit()));
         }));
         vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc");}));
+        vlay->addWidget(createLambdaActionButton("HostsBackup",[=](){
+            QFile::copy("C:/Windows/System32/drivers/etc/hosts", "C:/Windows/System32/drivers/etc/hosts.bkup");
+        }));
+
         vlay->addWidget(createLambdaActionButton("ConfigLoad",[=](){createMenu();}));
         vlay->addWidget(createLambdaActionButton("ConfigEdit",[=](){if(config->check()){QProcess::execute("C:/Windows/System32/cmd.exe /C start "+config->path);}}));
         vlay->addWidget(createLambdaActionButton("ConfigSave",[=](){config->save();}));

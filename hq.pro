@@ -21,10 +21,15 @@ DISTFILES += \
     .travis.yml \
     appveyor.yml \
     strartup.vbs \
-    icon.rc \
-    app.icon \
+    hq.rc \
+    hq.icon \
+    hq.exe.manifest \
     README.md
 
-win32 {
-    RC_FILE += icon.rc
+CONFIG(debug, debug|release) {
+    #message("debug")
+    win32 {
+        RC_FILE += hq.rc
+    }
 }
+

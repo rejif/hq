@@ -4,4 +4,4 @@ SOURCES += \
 
 HEADERS += \
         $$PWD/mainwindow.h \
-    $$PWD/config.h
+        $$PWD/config.h
