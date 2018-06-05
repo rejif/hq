@@ -1,5 +1,9 @@
 #include "mainwindow.h"
 #include <sys/time.h>
+
+//Admin privilege checker string
+#define ADMIN_TEST_STRING "HKEY_LOCAL_MACHINE"
+#define ADMIN_DEFAULT_KEY "(Default)"
 QString getUsername(){
     QString name = qgetenv("USER");
     return !name.isEmpty()?name:qgetenv("USERNAME");
@@ -35,9 +39,19 @@ QPushButton* createDetachBtn(QString btnText,QString command){
 QPushButton* createQDetachBtn(QString btnText,QString command){
     return createDetachBtn(btnText,"\""+command+"\"");
 }
+bool isUser(){
+    ////Check for admin privilege mode
+    QSettings adminPrivSettings(ADMIN_TEST_STRING, QSettings::NativeFormat);
+    QVariant currentAdminStatus = adminPrivSettings.value(ADMIN_DEFAULT_KEY);
+    adminPrivSettings.setValue(ADMIN_DEFAULT_KEY, currentAdminStatus);
+    adminPrivSettings.sync();
+    return adminPrivSettings.status() == QSettings::AccessError;
+    //return (adminPrivSettings.status() == QSettings::AccessError)?"Administrator privilege not found":"Administrator privilege was activated";
+}
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     setWindowTitle("HQ");
     setWindowIcon(QIcon(":/hq.png"));
+
     QWidget *w = createMenu();
     setCentralWidget(w);
 }
@@ -110,11 +124,14 @@ QWidget* MainWindow::createMenu(){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
             QTimer::singleShot(1000, qApp, SLOT(quit()));
         }));
-        vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc");}));
-        vlay->addWidget(createLambdaActionButton("HostsBackup",[=](){
-            QMessageBox::information(this,"Copy","Code:"+QFile::copy("C:/Windows/System32/drivers/etc/hosts", "C:/Windows/System32/drivers/etc/hosts.org"));
-        }));
-
+        if(isUser()){
+            vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc");}));
+        }else{
+            vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("notepad C:/Windows/System32/drivers/etc/hosts");}));
+//            vlay->addWidget(createLambdaActionButton("HostsBackup",[=](){
+//                QMessageBox::information(this,"Copy","Code:"+QFile::copy("C:/Windows/System32/drivers/etc/hosts", "C:/Windows/System32/drivers/etc/hosts.org"));
+//            }));
+        }
         vlay->addWidget(createLambdaActionButton("ConfigLoad",[=](){createMenu();}));
         vlay->addWidget(createLambdaActionButton("ConfigEdit",[=](){if(config->check()){QProcess::execute("C:/Windows/System32/cmd.exe /C start "+config->path);}}));
         vlay->addWidget(createLambdaActionButton("ConfigSave",[=](){config->save();}));

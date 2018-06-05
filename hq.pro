@@ -26,8 +26,8 @@ DISTFILES += \
     hq.exe.manifest \
     README.md
 
-CONFIG(debug, debug|release) {
-    #message("debug")
+CONFIG(release, debug|release) {
+    #message("release")
     win32 {
         RC_FILE += hq.rc
     }
