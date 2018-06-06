@@ -19,7 +19,7 @@ QString getUsername(){
 }
 template<typename Functor>
 void win10(Functor f){
-    if(QSysInfo::productVersion()==10){
+    if(QSysInfo::productVersion()=="10"){
         f();
     }
 }
