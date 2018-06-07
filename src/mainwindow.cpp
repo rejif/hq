@@ -156,7 +156,7 @@ QWidget* MainWindow::createMenu(){
         vlay->addWidget(createDetachBtn("TaskManager","taskmgr"));
         vlay->addWidget(createDetachBtn("Calc","calc"));
         vlay->addWidget(
-            createLambdaActionButton("ShutdownForce",[=]() {
+            createLambdaActionButton("ShutdownForce#sft0",[=]() {
                 QMessageBox::StandardButton reply;
                  reply = QMessageBox::question(this,"Confirm","ShutdownForce?",QMessageBox::Ok|QMessageBox::Cancel);
                  if (reply == QMessageBox::Ok) {
@@ -164,7 +164,7 @@ QWidget* MainWindow::createMenu(){
                  }
             })
         );
-        vlay->addWidget(createDetachBtn("Shutdown2h","C:/Windows/System32/Shutdown.exe /s /t 7200"));
+        vlay->addWidget(createDetachBtn("Shutdown#st7200","C:/Windows/System32/Shutdown.exe /s /t 7200"));
         vlay->addWidget(createDetachBtn("ShutdownCancel","C:/Windows/System32/Shutdown.exe /a"));
     }
     if(config->work){

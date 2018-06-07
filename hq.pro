@@ -18,6 +18,7 @@ RESOURCES += \
     resources/resource.qrc
 
 DISTFILES += \
+    .gitignore \
     .travis.yml \
     appveyor.yml \
     strartup.vbs \
