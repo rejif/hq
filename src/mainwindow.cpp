@@ -39,14 +39,15 @@ QPushButton* createLambdaActionButton(QString btnText,Functor f){
    );
    return lambdaBtn;
 }
-QPushButton* createExecuteBtn(QString btnText,QString command){
-    return createLambdaActionButton(btnText,[=]() { QProcess::execute(command); });
+QPushButton* createDetachBtn(QString btnText,QString command){return createLambdaActionButton(btnText,[=](){QProcess::startDetached(command);});}
+QPushButton* createQDetachBtn(QString btnText,QString command){return createDetachBtn(btnText,"\""+command+"\"");}
+QPushButton* createExecuteBtn(QString btnText,QString command){return createLambdaActionButton(btnText,[=](){QProcess::execute(command);});}
+QPushButton* createExecuteCmdBtn(QString btnText,QString command){return createExecuteBtn(btnText,"C:/Windows/System32/cmd.exe /C "+command);}
+QPushButton* createCommandBtn(QString btnText,QString command){
+    return createExecuteCmdBtn(btnText,"cd \\ && "+command);
 }
-QPushButton* createDetachBtn(QString btnText,QString command){
-    return createLambdaActionButton(btnText,[=]() { QProcess::startDetached(command); });
-}
-QPushButton* createQDetachBtn(QString btnText,QString command){
-    return createDetachBtn(btnText,"\""+command+"\"");
+QPushButton* createCommandBtnFromHome(QString btnText,QString command){
+    return createExecuteCmdBtn(btnText,"cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && "+command);
 }
 MainWindow::MainWindow(QWidget *parent):QMainWindow(parent){
     setWindowTitle("HQ");
@@ -96,9 +97,9 @@ QWidget* MainWindow::createMenu(){
     if(!config->develop_hidden){
         vlay->addWidget(new QLabel("Develop"));
         /**///vlay->addWidget(createQDetachBtn("GitBash","C:/Program Files/Git/git-bash.exe"));
-        vlay->addWidget(createExecuteBtn("GitBash","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+" && start \" \" \"C:/Program Files/Git/git-bash.exe\""));
-        vlay->addWidget(createExecuteBtn("PowerShell","C:/Windows/System32/cmd.exe /C cd \\ && start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
-        vlay->addWidget(createExecuteBtn("CMD","C:/Windows/System32/cmd.exe /C cd \\ && start cmd"));
+        vlay->addWidget(createCommandBtnFromHome("GitBash","start \" \" \"C:/Program Files/Git/git-bash.exe\""));
+        vlay->addWidget(createCommandBtn("PowerShell","start C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"));
+        vlay->addWidget(createCommandBtn("CMD","start cmd"));
         win10([=](){vlay->addWidget(createExecuteBtn("WSL","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));});
         vlay->addWidget(
             createLambdaActionButton("QuietRun",[=](){
@@ -124,11 +125,9 @@ QWidget* MainWindow::createMenu(){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
             QTimer::singleShot(1000, qApp, SLOT(quit()));
         }));
-        if(isUser()){
-            vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc");}));
-        }else{
-            vlay->addWidget(createLambdaActionButton("Hosts",[=](){QProcess::startDetached("notepad C:/Windows/System32/drivers/etc/hosts");}));
-        }
+        vlay->addWidget(createLambdaActionButton("Hosts",[=](){
+            QProcess::startDetached(isUser()?"C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc":"notepad C:/Windows/System32/drivers/etc/hosts");}
+        ));
         vlay->addWidget(createLambdaActionButton("ConfigLoad",[=](){createMenu();}));
         vlay->addWidget(createLambdaActionButton("ConfigEdit",[=](){
             if(!config->check()){
