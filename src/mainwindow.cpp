@@ -125,9 +125,10 @@ QWidget* MainWindow::createMenu(){
             })
         );
         win10([=](){vl->addWidget(createExecuteBtn("WSL","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));});
-        vl->addWidget(createDetachBtn("ControlPanel","control"));
+        vl->addWidget(createDetachBtn("Library","explorer.exe ::{031E4825-7B94-4dc3-B131-E946B44C8DD5}"));
         vl->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
         vl->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
+        vl->addWidget(createDetachBtn("ControlPanel","control"));
         vl->addWidget(createLambdaActionButton("Restart",[=](){
             QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
             QTimer::singleShot(1000, qApp, SLOT(quit()));
