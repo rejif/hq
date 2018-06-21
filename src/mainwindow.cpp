@@ -151,15 +151,6 @@ QWidget* MainWindow::createMenu(){
         vl->addWidget(createDetachBtn("NetworkAndSharingCenter","control.exe /name Microsoft.NetworkAndSharingCenter"));
         vl->addWidget(createDetachBtn("MSInfo","msinfo32.exe"));
         vl->addWidget(
-            createLambdaActionButton("FlushDNS",[=](){
-            QProcess process;
-            process.start("C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns");
-            process.waitForFinished();
-            int code = process.exitCode();
-                QMessageBox::information(this,"FlashDNS","Done:"+code);
-            })
-        );
-        vl->addWidget(
             createLambdaActionButton("ShutdownForce#sft0",[=]() {
                 QMessageBox::StandardButton reply;
                  reply = QMessageBox::question(this,"Confirm","ShutdownForce?",QMessageBox::Ok|QMessageBox::Cancel);
@@ -179,6 +170,15 @@ QWidget* MainWindow::createMenu(){
         vl->addWidget(createLambdaActionButton("Hosts",[=](){
             QProcess::startDetached(isUser()?"C:/Windows/System32/cmd.exe /C start C:/Windows/System32/drivers/etc":"notepad C:/Windows/System32/drivers/etc/hosts");}
         ));
+        vl->addWidget(
+            createLambdaActionButton("FlushDNS",[=](){
+            QProcess process;
+            process.start("C:/Windows/System32/cmd.exe /C cd \\ && ipconfig /flushdns");
+            process.waitForFinished();
+            int code = process.exitCode();
+                QMessageBox::information(this,"FlashDNS","Done:"+code);
+            })
+        );
     }
     if(config->editor){
         vl->addWidget(new QLabel("Editor"));
