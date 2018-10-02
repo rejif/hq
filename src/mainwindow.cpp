@@ -124,7 +124,7 @@ QWidget* MainWindow::createMenu(){
                 QProcess::startDetached("C:/Windows/System32/cmd.exe /C cd \\ && " + cmd);
             })
         );
-        win10([=](){vl->addWidget(createExecuteBtn("WSL","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));});
+        win10([=](){vl->addWidget(createExecuteBtn(isUser()?"WSL":"AdminWSL(forDocker)","C:/Windows/System32/cmd.exe /C cd "+QStandardPaths::writableLocation(QStandardPaths::HomeLocation)+"/AppData/Local/Microsoft/WindowsApps"+" && start \" \" \"ubuntu.exe\""));});
         vl->addWidget(createDetachBtn("Library","explorer.exe ::{031E4825-7B94-4dc3-B131-E946B44C8DD5}"));
         vl->addWidget(createDetachBtn("RecycleBin","explorer.exe ::{645FF040-5081-101B-9F08-00AA002F954E}"));
         vl->addWidget(createDetachBtn("Service","\"C:/Windows/System32/mmc.exe\" \"C:/Windows/System32/services.msc\""));
