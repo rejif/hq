@@ -164,6 +164,7 @@ QWidget* MainWindow::createMenu(){
     }
     if(config->work){
         vl->addWidget(new QLabel("Work"));
+        vl->addWidget(createQDetachBtn("PhpStorm","C:/Program Files (x86)/JetBrains/PhpStorm 2016.2.2/bin/PhpStorm64.exe"));
         vl->addWidget(createQDetachBtn("TeraTerm","C:/Program Files (x86)/teraterm/ttermpro.exe"));
         vl->addWidget(createQDetachBtn("WinSCP","C:/Program Files (x86)/WinSCP/WinSCP.exe"));
         vl->addWidget(createQDetachBtn("Thunderbird","C:/Program Files (x86)/Mozilla Thunderbird/thunderbird.exe"));
@@ -256,7 +257,6 @@ QWidget* MainWindow::createMenu(){
         vl->addWidget(createQDetachBtn("IntelliJIDEA","C:/Program Files (x86)/JetBrains/IntelliJ IDEA 2016.2.5\bin/idea64.exe"));
         vl->addWidget(createQDetachBtn("Clion","C:/Program Files (x86)/JetBrains/CLion 2016.2.3/bin/clion64.exe"));
         vl->addWidget(createQDetachBtn("DataGrip","C:/Program Files (x86)/JetBrains/DataGrip 2016.2.6/bin/datagrip64.exe"));
-        vl->addWidget(createQDetachBtn("PhpStorm","C:/Program Files (x86)/JetBrains/PhpStorm 2016.2.2/bin/PhpStorm64.exe"));
         vl->addWidget(createQDetachBtn("PyCharm","C:/Program Files (x86)/JetBrains/PyCharm 2016.2.3/bin/pycharm64.exe"));
         vl->addWidget(createQDetachBtn("RubyMine","C:/Program Files (x86)/JetBrains/RubyMine 2016.2.5/bin/rubymine64.exe"));
         vl->addWidget(createQDetachBtn("WebStorm","C:/Program Files (x86)/JetBrains/WebStorm 2016.2.4/bin/WebStorm64.exe"));
